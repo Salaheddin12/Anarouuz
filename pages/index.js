@@ -1,65 +1,58 @@
+import React  from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
+import Twitter  from './../components/social/Twiter';
+import Behance  from './../components/social/Behance';
+import Instagram  from './../components/social/Instagram';
+import data from '../data'
+import Gallery from '../components/gallery';
 
 export default function Home() {
+
+  const {socialLinks}=data;
+  
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Anarouuz</title>
+        <link rel="icon" href="logo.png" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+      <section className={styles.header}>
+      <nav className={styles.navBar}>
+        <img style={{width:80,height:80}} src="/logo.png"/>
+        <AnchorLink offset="100" to="#">Home</AnchorLink>
+        <AnchorLink offset="100" to="#work">My Work</AnchorLink>
+        <AnchorLink offset="100" to="#contact">Contact</AnchorLink>
+      </nav>
+      <div className={styles.socialLinks}>
+        <a 
+          href={socialLinks.twitter}   
           target="_blank"
           rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+          aria-label="Get in touch with me Twitter"><Twitter/></a>
+        <a
+          href={data.socialLinks.instagram}  
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Get in touch with me Instagram">
+          <Instagram/>  
         </a>
-      </footer>
+        <a
+          href={data.socialLinks.bahance}  
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Get in touch with me Behance">
+          <Behance/>
+        </a>
+      </div>
+      <div className={styles.about} id="work">
+        <h1 className={styles.title}>Hello.</h1>
+        <h3 className={styles.author}>{data.author} here</h3>
+        <p className={styles.description}>{data.defaultDescription}</p>
+      </div></section>
+      <Gallery/>
     </div>
   )
+  
 }
