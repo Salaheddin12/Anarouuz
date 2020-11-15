@@ -8,7 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "10.0.1",
+    "axios": "^0.21.0",
+    "formik": "^2.2.5",
+    "next": "^10.0.1",
     "react": "17.0.1",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-dom": "17.0.1",

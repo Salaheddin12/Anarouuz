@@ -6,9 +6,14 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+h4 {
+  font-weight: normal;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 * {
