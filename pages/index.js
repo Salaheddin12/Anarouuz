@@ -13,7 +13,6 @@ import Contact from '../components/contact';
 const Home=({posts})=> {
   const {socialLinks}=Data;
 
-  console.log('index',posts);
   return (
     <div className={styles.bodyContainer}>
       <Head>
@@ -55,7 +54,11 @@ const Home=({posts})=> {
       </div>
       </section>
       <section id="work"><Gallery posts={posts}/></section>
-      <section id="contact">
+      <section id="contact" 
+                style={{  
+                    display: "flex",
+                    flexFlow: "column nowrap",
+                    alignItems: "flex-start"}}>
           <Contact/>
       </section>
     </div>
@@ -74,14 +77,7 @@ export async function getStaticProps() {
     }
   };
   const posts= (await axios.request(options)).data;
-  // .then(response =>{
-  //   console.log(response);
-  //   posts=response.data
-  // })
-  // .catch(error=> {
-  //   console.error(error);
-  // });
-  console.log("in getstaticprops",posts);
+
   return {props:{posts}};
 }
 

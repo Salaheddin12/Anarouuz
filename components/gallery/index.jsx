@@ -4,14 +4,14 @@ import styles from "../../styles/Home.module.css";
 const Gallery = ({ posts }) => {
   console.log("posts", posts);
   const { edges } = posts.data.user.edge_owner_to_timeline_media;
-  console.log(edges);
+  const filtredEdges = edges.filter((item, index) => index < 8);
+  console.log(filtredEdges);
   return (
     <div className={styles.galleryContainer}>
-      {edges.map((edge) => {
+      {filtredEdges.map((edge) => {
         return (
           <a
             key={edge.node.id}
-            target="_blank"
             rel="noopener noreferrer"
             href={`/posts/${edge.node.id}`}
           >

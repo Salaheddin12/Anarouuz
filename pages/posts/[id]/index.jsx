@@ -1,30 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Data from "../../../data";
 import styles from "../../../styles/Home.module.css";
+import postStyles from "./post.module.css";
 import Instagram from "../../../components/social/Instagram";
 import Twitter from "../../../components/social/Twitter";
 import Behance from "../../../components/social/Behance";
 import Image from "../../../components/gallery/image";
-import RedirectLink from "../../../components/common/RedirectLink";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const Post = ({ post }) => {
   var regexp = new RegExp("#([^\\s]*)", "g");
 
   const { socialLinks } = Data;
 
   console.log("post", post);
+  const [currentIndex, setCurrentIndex] = useState(1);
 
-  const { display_url, edge_media_to_caption } = post.node;
+  const { display_resources, edge_media_to_caption } = post.node;
 
   const { text } = edge_media_to_caption.edges[0].node;
 
   const description = text.replace(regexp, "");
   const postURL = `https://www.instagram.com/p/${post.node.shortcode}`;
-  console.log(postURL);
   return (
-    <div className={(styles.container, styles.header)}>
+    <div className={styles.header}>
       <Head>
         <title>Anarouuz</title>
         <link rel="icon" href="/logo.png" />
@@ -62,10 +62,22 @@ const Post = ({ post }) => {
         </a>
       </div>
       <div className={styles.container}>
-        <a href={postURL} >
-          <Image Img={display_url} />
-        </a>
-        <p className={styles.postDescription}>{description}</p>
+        <FaChevronLeft className={postStyles.chevron} />
+        <div
+          style={{
+            display: "flex",
+            flexFlow: "row nowrap",
+            justifyContent: "space-evenly",
+            padding: "2rem 0",
+            width: 300 + "px",
+          }}
+        >
+          <a href={postURL}>
+            <Image Img={display_resources[index].src} />
+          </a>
+        </div>
+        <FaChevronRight className={postStyles.chevron} />
+        <p className={postStyles.postDescription}>{description}</p>
       </div>
     </div>
   );

@@ -1,92 +1,177 @@
-// import { SMTPClient } from "emailjs";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import styles from "../../styles/Home.module.css";
+import React, { useReducer } from "react";
+import emailjs from "emailjs-com";
+import Joi from "joi-browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./form.module.css";
 
-const Contact = () => {
-  //   const client = new SMTPClient({
-  //     user: "user",
-  //     password: "password",
-  //     host: "smtp.gmail.com",
-  //     ssl: true,
-  //   });
+const INITIAL_STATE = {
+  name: "",
+  email: "",
+  subject: "",
+  body: "",
+};
+
+const schema = {
+  name: Joi.string().required().label("Username"),
+  email: Joi.string()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+    .alphanum()
+    .required()
+    .label("Email"),
+  subject: Joi.string().required().label("Subject"),
+  body: Joi.string().required().label("body"),
+};
+
+const validate = () => {
+  const options = { abortEarly: false };
+  const { error } = Joi.validate(INITIAL_STATE, schema, options);
+  if (!error) return null;
+  const errors = {};
+  error.details.map((error_) => (errors[error_.path[0]] = error_.message));
+  return errors;
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "updateFieldValue":
+      return { ...state, [action.field]: action.value };
+
+    case "updateStatus":
+      return { ...state, status: action.status };
+
+    case "reset":
+    default:
+      return INITIAL_STATE;
+  }
+};
+
+const Form = () => {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+
+  const setStatus = (status) => dispatch({ type: "updateStatus", status });
+
+  const updateFieldValue = (field) => ({target}) => {
+    const errors = { ...errors };
+    const errorMessage = validateProperty(target);
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
+    this.setState({ data, errors });
+    dispatch({
+      type: "updateFieldValue",
+      field,
+      value: target.value,
+    });
+  };
+
+  const validateProperty = ({ name, value }) => {
+    const obj = { [name]: value };
+    const schema = {
+      [name]: this.schema[name],
+    };
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const errors = validate();
+    if (errors) {
+      toast.error("", errors);
+    } else {
+      emailjs
+        .sendForm(
+          "service_sqr25l7",
+          "template_zlr9qts",
+          event.target,
+          "user_nqEALJFymPhzlFvwKQjBV"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            toast.success("Thank you for contacting us");
+          },
+          (error) => {
+            console.log(error.text);
+            toast.error("something went wrong");
+          }
+        );
+    }
+  };
+
+  if (state.status === "SUCCESS") {
+    return (
+      <p className={styles.success}>
+        Message sent!
+        <button
+          type="reset"
+          onClick={() => dispatch({ type: "reset" })}
+          className={`${styles.button} ${styles.centered}`}
+        >
+          Reset
+        </button>
+      </p>
+    );
+  }
 
   return (
-    <div className={styles.formContainer}>
-      <Formik
-        initialValues={{ email: "", name: "", message: "" }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-            // client.send(
-            //   {
-            //     text: values.message,
-            //     from: `${values.name} <${values.email}>`,
-            //     to: "salah <ab.salah012@gmail.com>",
-            //     subject: "testing emailjs",
-            //   },
-            //   (err, message) => {
-            //     console.log(err || message);
-            //   }
-            // );
-          }, 400);
-        }}
+    <>
+      <ToastContainer />
+      {state.status === "ERROR" && (
+        <p className={styles.error}>Something went wrong. Please try again.</p>
+      )}
+      <form
+        className={`${styles.form} ${
+          state.status === "PENDING" && styles.pending
+        }`}
+        onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
-          <Form className={styles.form}>
-            <Field
-              id="email"
-              className={styles.inputField}
-              aria-label="email"
-              component="input"
+        <div className={styles.fields}>
+          <label>
+            name
+            <input
+              type="text"
+              name="name"
+              value={state.name}
+              onChange={updateFieldValue("name")}
+            />
+          </label>
+          <label>
+            email
+            <input
               type="email"
               name="email"
-              placeholder="Email*"
+              value={state.email}
+              onChange={updateFieldValue("email")}
             />
-            <ErrorMessage component={Error} name="email" />
-            <Field
+          </label>
+          <label>
+            subject
+            <input
               type="text"
-              className={styles.inputField}
-              name="name"
-              component="input"
-              aria-label="name"
-              placeholder="Full name*"
+              name="subject"
+              value={state.subject}
+              onChange={updateFieldValue("subject")}
             />
-            <ErrorMessage component={Error} name="name" />
-            <Field
-              className={styles.inputField}
-              component="textarea"
-              aria-label="message"
-              id="message"
-              rows="8"
-              type="text"
-              name="message"
-              placeholder="Message*"
+          </label>
+          <label>
+            message
+            <textarea
+              name="body"
+              value={state.body}
+              onChange={updateFieldValue("body")}
             />
-            <ErrorMessage component={Error} name="message" />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={styles.btn}
-            >
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+          </label>
+        </div>
+        <button
+          type="submit"
+          defaultValue="Send Message"
+          className={styles.button}
+        >
+          Send
+        </button>
+      </form>
+    </>
   );
 };
 
-export default Contact;
+export default Form;

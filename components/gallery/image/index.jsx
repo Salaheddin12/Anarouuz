@@ -8,7 +8,10 @@ export default ({Img}) => {
         className="Tilt"
         options={{ max: 25 }}
     >
-      <img src={Img} className={styles.galleryImg}/>
+      <img 
+        src={Img} 
+        className={styles.galleryImg} 
+        />
     </Tilt>
     );
 };

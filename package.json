@@ -9,12 +9,17 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "emailjs-com": "^2.6.4",
     "formik": "^2.2.5",
+    "joi": "^17.3.0",
+    "joi-browser": "^13.4.0",
     "next": "^10.0.1",
     "react": "17.0.1",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-dom": "17.0.1",
     "react-grid-gallery": "^0.5.5",
-    "react-tilt": "^0.1.4"
+    "react-icons": "^3.11.0",
+    "react-tilt": "^0.1.4",
+    "react-toastify": "^6.1.0"
   }
 }
