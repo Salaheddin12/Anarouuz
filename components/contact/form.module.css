@@ -1,0 +1,125 @@
+.form {
+  width: 100%;
+  height: 100vh;
+  padding: 10rem 5rem;
+  background: url("/lighthouse.svg") center/cover no-repeat;
+}
+
+.button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: background-color 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+  -webkit-transition: background-color 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+  -ms-transition: background-color 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out,
+    color 0.25s ease-in-out;
+  background-color: transparent;
+  border-radius: 0.325rem;
+  border: 0;
+  box-shadow: inset 0 0 0 2px rgba(207, 207, 207, 0.25);
+  color: #ffffff !important;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  height: 3rem;
+  width: 10rem;
+  letter-spacing: 0.175em;
+  line-height: 3rem;
+  padding: 0 2rem;
+  margin: 0 auto;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.button:active {
+  background-color: rgba(255, 87, 51, 0.1);
+  box-shadow: inset 1 1 1 2px #fdfdfd;
+  color: #383838 !important;
+}
+
+.button.centered {
+  margin: 1rem auto;
+}
+
+/* Form pending styles */
+.form.pending {
+  position: relative;
+}
+
+.form.pending::before {
+  background: white;
+  border-radius: 0.25rem;
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+}
+
+.form.pending::after {
+  animation: loading 1s infinite ease-out;
+  background: radial-gradient(rgba(255, 195, 0, 0), rgba(255, 87, 51, 0.75));
+  border-radius: 50%;
+  content: "";
+  height: 6rem;
+  width: 6rem;
+  position: absolute;
+  left: calc(50% - 3rem);
+  top: calc(50% - 3rem);
+}
+
+@keyframes loading {
+  from {
+    opacity: 1;
+    transform: scale(0.001);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* Sucess and error message styles */
+.success,
+.error {
+  border-radius: 0.25rem;
+  display: block;
+  margin: 0.75rem auto 0;
+  max-width: 500px;
+  text-align: center;
+  color: #fdfdfd;
+}
+
+.success {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid #2ecc71;
+  padding: 2rem;
+}
+
+.error {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid #c70039;
+  padding: 1rem;
+}
+
+.fields {
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -moz-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: -2rem 0 2rem -2rem;
+  width: calc(100% + 4rem);
+}
