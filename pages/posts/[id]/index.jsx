@@ -65,13 +65,13 @@ const Post = ({ article }) => {
 };
 
 export async function getStaticPaths() {
-  const articles = await client.getEntries({ content_type: "article" });
+  const articles = await client.getEntries({ content_type: "article" }).items;
   const paths = articles.map((article) => `/posts/${article.sys.id}`);
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const articles = await client.getEntries({ content_type: "article" });
+  const articles = await client.getEntries({ content_type: "article" }).items;
   const article = articles.filter((article) => article.sys.id === params.id);
   return { props: { article: article[0] } };
 }
