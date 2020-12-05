@@ -1,21 +1,16 @@
 import React from "react";
 import Image from "./image";
 import styles from "../../styles/Home.module.css";
-const Gallery = ({ posts }) => {
-  console.log("posts", posts);
-  const { edges } = posts.data.user.edge_owner_to_timeline_media;
-  const filtredEdges = edges.filter((item, index) => index < 8);
-  console.log(filtredEdges);
+const Gallery = ({ articles }) => {
+  console.log(articles);
+  console.log(articles[0].fields.image.fields.file.url, articles[0].sys.id);
+
   return (
     <div className={styles.galleryContainer}>
-      {filtredEdges.map((edge) => {
+      {articles.map((article) => {
         return (
-          <a
-            key={edge.node.id}
-            rel="noopener noreferrer"
-            href={`/posts/${edge.node.id}`}
-          >
-            <Image edge={edge} Img={edge.node.thumbnail_src} />
+          <a href={`./posts/${article.sys.id}`} rel="noopener noreferrer">
+            <Image Img={`https:${article.fields.image.fields.file.url}`} />
           </a>
         );
       })}

@@ -9,20 +9,18 @@ import Twitter from "../../../components/social/Twitter";
 import Behance from "../../../components/social/Behance";
 import Image from "../../../components/gallery/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-const Post = ({ post }) => {
-  var regexp = new RegExp("#([^\\s]*)", "g");
 
+const contentful = require("contentful");
+
+const client = contentful.createClient({
+  // This is the space ID. A space is like a project folder in Contentful terms
+  space: process.env.CONTENTFUL_SPACE_ID,
+  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+});
+const Post = ({ article }) => {
   const { socialLinks } = Data;
 
-  console.log("post", post);
-  const [currentIndex, setCurrentIndex] = useState(1);
-
-  const { display_resources, edge_media_to_caption } = post.node;
-
-  const { text } = edge_media_to_caption.edges[0].node;
-
-  const description = text.replace(regexp, "");
-  const postURL = `https://www.instagram.com/p/${post.node.shortcode}`;
   return (
     <div className={styles.header}>
       <Head>
@@ -61,58 +59,21 @@ const Post = ({ post }) => {
           <Behance />
         </a>
       </div>
-      <div className={styles.container}>
-        <FaChevronLeft className={postStyles.chevron} />
-        <div
-          style={{
-            display: "flex",
-            flexFlow: "row nowrap",
-            justifyContent: "space-evenly",
-            padding: "2rem 0",
-            width: 300 + "px",
-          }}
-        >
-          <a href={postURL}>
-            <Image Img={display_resources[index].src} />
-          </a>
-        </div>
-        <FaChevronRight className={postStyles.chevron} />
-        <p className={postStyles.postDescription}>{description}</p>
-      </div>
+      <div className={styles.container}></div>
     </div>
   );
 };
 
 export async function getStaticPaths() {
-  const options = {
-    method: "GET",
-    url: "https://iglytics.p.rapidapi.com/ep_user_post.php",
-    params: { userid: "5695354789" },
-    headers: {
-      "x-rapidapi-key": "8ed3ac0a1bmshb2ebf05d9376fdbp1675a1jsn12d4909f1ec8",
-      "x-rapidapi-host": "iglytics.p.rapidapi.com",
-    },
-  };
-  const posts = (await axios.request(options)).data.data.user
-    .edge_owner_to_timeline_media.edges;
-  const paths = posts.map((post) => `/posts/${post.node.id}`);
+  const articles = await client.getEntries({ content_type: "article" });
+  const paths = posts.map((article) => `/posts/${article.sys.id}`);
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const options = {
-    method: "GET",
-    url: "https://iglytics.p.rapidapi.com/ep_user_post.php",
-    params: { userid: "5695354789" },
-    headers: {
-      "x-rapidapi-key": "8ed3ac0a1bmshb2ebf05d9376fdbp1675a1jsn12d4909f1ec8",
-      "x-rapidapi-host": "iglytics.p.rapidapi.com",
-    },
-  };
-  const posts = (await axios.request(options)).data.data.user
-    .edge_owner_to_timeline_media.edges;
-  const post = posts.filter((post) => post.node.id === params.id);
-  return { props: { post: post[0] } };
+  const articles = await client.getEntries({ content_type: "article" });
+  const article = articles.filter((article) => article.sys.id === params.id);
+  return { props: { article: article[0] } };
 }
 
 export default Post;

@@ -10,9 +10,19 @@ import Data from '../data'
 import Gallery from '../components/gallery';
 import Contact from '../components/contact';
 
-const Home=({posts})=> {
+const contentful = require("contentful");
+
+const client = contentful.createClient({
+  // This is the space ID. A space is like a project folder in Contentful terms
+  space:process.env.CONTENTFUL_SPACE_ID,
+  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+}); 
+const Home=({articles})=> {
   const {socialLinks}=Data;
 
+  console.log(articles);
+  // const {}
   return (
     <div className={styles.bodyContainer}>
       <Head>
@@ -53,7 +63,11 @@ const Home=({posts})=> {
         <p className={styles.description}>{Data.defaultDescription}</p>
       </div>
       </section>
-      <section id="work"><Gallery posts={posts}/></section>
+      <section id="work">
+        <Gallery
+          articles={articles}
+        />
+      </section>
       <section id="contact" 
                 style={{  
                     display: "flex",
@@ -67,18 +81,11 @@ const Home=({posts})=> {
 }
 
 export async function getStaticProps() {
-  const options = {
-    method: 'GET',
-    url: 'https://iglytics.p.rapidapi.com/ep_user_post.php',
-    params: {userid: '5695354789'},
-    headers: {
-      'x-rapidapi-key': '8ed3ac0a1bmshb2ebf05d9376fdbp1675a1jsn12d4909f1ec8',
-      'x-rapidapi-host': 'iglytics.p.rapidapi.com'
-    }
-  };
-  const posts= (await axios.request(options)).data;
+  const articles=(await client.getEntries({content_type:'article'}));
+    // .then(entry => {return entry.fields})
+    // .catch(err => console.log(err));
 
-  return {props:{posts}};
+  return {props:{articles:articles.items}};
 }
 
 export default Home;
