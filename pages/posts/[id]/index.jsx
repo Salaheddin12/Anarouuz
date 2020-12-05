@@ -66,7 +66,7 @@ const Post = ({ article }) => {
 
 export async function getStaticPaths() {
   const articles = await client.getEntries({ content_type: "article" });
-  const paths = posts.map((article) => `/posts/${article.sys.id}`);
+  const paths = articles.map((article) => `/posts/${article.sys.id}`);
   return { paths, fallback: false };
 }
 
