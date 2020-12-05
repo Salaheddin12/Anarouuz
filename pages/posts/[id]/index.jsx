@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Head from "next/head";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
 import Data from "../../../data";
 import styles from "../../../styles/Home.module.css";
 import postStyles from "./post.module.css";
 import Instagram from "../../../components/social/Instagram";
 import Twitter from "../../../components/social/Twitter";
 import Behance from "../../../components/social/Behance";
-import Image from "../../../components/gallery/image";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const contentful = require("contentful");
 
@@ -20,7 +19,8 @@ const client = contentful.createClient({
 });
 const Post = ({ article }) => {
   const { socialLinks } = Data;
-
+  const { title, content, image } = article.fields;
+  console.log(article);
   return (
     <div className={styles.header}>
       <Head>
@@ -30,7 +30,7 @@ const Post = ({ article }) => {
       <nav className={styles.navBar}>
         <img className={styles.icon} src="/logo.png" />
         <a href="/">Home</a>
-        <a href="/#work">My Work</a>
+        <a href="/#articles">Articles</a>
         <a href="/#contact">Contact</a>
       </nav>
       <div className={styles.socialLinks}>
@@ -59,20 +59,38 @@ const Post = ({ article }) => {
           <Behance />
         </a>
       </div>
-      <div className={styles.container}></div>
+      <div className={postStyles.post}>
+        <h1 className={postStyles.title}>{title}</h1>
+        <div>
+          {documentToReactComponents(content, {
+            renderNode: {
+              [BLOCKS.EMBEDDED_ASSET]: (node) => (
+                <img
+                  src={node.data.target.fields.file.url}
+                  style={{ maxWidth: 600, margin: "2rem auto" }}
+                />
+              ),
+            },
+          })}
+        </div>
+      </div>
     </div>
   );
 };
 
 export async function getStaticPaths() {
-  const articles = await client.getEntries({ content_type: "article" }).items;
-  const paths = articles.map((article) => `/posts/${article.sys.id}`);
+  const articles = await client.getEntries({ content_type: "article" });
+  // const articles = { ...data.items };
+  const paths = articles.items.map((article) => `/posts/${article.sys.id}`);
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const articles = await client.getEntries({ content_type: "article" }).items;
-  const article = articles.filter((article) => article.sys.id === params.id);
+  const articles = await client.getEntries({ content_type: "article" });
+  // const articles = { ...data.items };
+  const article = articles.items.filter(
+    (article) => article.sys.id === params.id
+  );
   return { props: { article: article[0] } };
 }
 

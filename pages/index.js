@@ -33,7 +33,7 @@ const Home=({articles})=> {
       <nav className={styles.navBar}>
       <img className={styles.icon} src="/logo.png"/>
       <a as={AnchorLink} href="#"> Home</a>
-      <a as={AnchorLink} href="#work"> My Work</a>
+      <a as={AnchorLink} href="#articles"> Articles</a>
       <a as={AnchorLink} href="#contact"> Contact</a>
       </nav>
       <div className={styles.socialLinks}>
@@ -63,7 +63,7 @@ const Home=({articles})=> {
         <p className={styles.description}>{Data.defaultDescription}</p>
       </div>
       </section>
-      <section id="work">
+      <section id="articles">
         <Gallery
           articles={articles}
         />

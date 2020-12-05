@@ -44,8 +44,8 @@
 .about {
   color: #f0f8ff;
   padding: 3rem;
-  margin: 5rem auto;
-  margin-bottom: 0;
+  margin: 10rem auto;
+  /* margin-bottom: 0; */
   letter-spacing: 2px;
 }
 
@@ -57,11 +57,13 @@
 .author {
   font-size: 43px;
   color: #e74c3c;
+  margin-top: 2rem;
   font-family: "Roboto", sans-serif;
 }
 
 .description {
   font-size: 22px;
+  margin-top: 2.5rem;
 }
 
 .galleryContainer {
@@ -86,7 +88,6 @@
 .galleryImg:hover {
   box-shadow: 3px 3px 10px #e74c3c, -3px -3px 15px #e74c3c;
 }
-
 
 .galleryImg::before {
   width: 100%;
@@ -116,7 +117,6 @@
   align-content: space-between;
   box-shadow: 3px 3px 15px seashell;
 }
-
 
 /*form*/
 .formContainer {

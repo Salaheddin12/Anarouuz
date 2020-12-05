@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^14.1.2",
     "axios": "^0.21.0",
     "contentful": "^8.0.3",
     "emailjs-com": "^2.6.4",
