@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import Head from "next/head";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
-import Data from "../../../data";
-import styles from "../../../styles/Home.module.css";
-import postStyles from "./post.module.css";
-import Instagram from "../../../components/social/Instagram";
-import Twitter from "../../../components/social/Twitter";
-import Behance from "../../../components/social/Behance";
+import Layout from "../../../components/common/Layout";
+import styles from "./post.module.css";
 
 const contentful = require("contentful");
 
@@ -18,50 +13,13 @@ const client = contentful.createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
 });
 const Post = ({ article }) => {
-  const { socialLinks } = Data;
-  const { title, content, image } = article.fields;
+  const { title, content } = article.fields;
   console.log(article);
   return (
-    <div className={styles.header}>
-      <Head>
-        <title>Anarouuz</title>
-        <link rel="icon" href="/logo.png" />
-      </Head>
-      <nav className={styles.navBar}>
-        <img className={styles.icon} src="/logo.png" />
-        <a href="/">Home</a>
-        <a href="/#articles">Articles</a>
-        <a href="/#contact">Contact</a>
-      </nav>
-      <div className={styles.socialLinks}>
-        <a
-          href={socialLinks.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Get in touch with me Twitter"
-        >
-          <Twitter />
-        </a>
-        <a
-          href={socialLinks.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Get in touch with me Instagram"
-        >
-          <Instagram />
-        </a>
-        <a
-          href={socialLinks.bahance}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Get in touch with me Behance"
-        >
-          <Behance />
-        </a>
-      </div>
-      <div className={postStyles.post}>
-        <h1 className={postStyles.title}>{title}</h1>
-        <div>
+    <Layout>
+      <div className={styles.post}>
+        <h1 className={styles.title}>{title}</h1>
+        <div className={styles.postContent}>
           {documentToReactComponents(content, {
             renderNode: {
               [BLOCKS.EMBEDDED_ASSET]: (node) => (
@@ -74,7 +32,7 @@ const Post = ({ article }) => {
           })}
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
