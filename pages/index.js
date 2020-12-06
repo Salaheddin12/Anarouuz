@@ -40,8 +40,8 @@ const Home=({articles})=> {
 }
 
 export async function getStaticProps() {
-  const articles=(await client.getEntries({content_type:'article'}))
-  .catch(err => console.log(err));
+  const articles=(await client.getEntries({content_type:'article'}));
+  
     // .then(entry => {return entry.fields})
   return {props:{articles:articles.items}};
 }
