@@ -8,7 +8,7 @@ const Gallery = ({ articles }) => {
       {articles.map((article) => {
         return (
           <Link href={`/posts/${article.sys.id}`}>
-            <a rel="noopener noreferrer" style={{ outline: "none" }}>
+            <a key={article.sys.id} rel="noopener noreferrer">
               <Image Img={`https:${article.fields.image.fields.file.url}`} />
             </a>
           </Link>
