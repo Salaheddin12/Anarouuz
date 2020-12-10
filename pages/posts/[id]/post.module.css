@@ -4,8 +4,14 @@
   margin: 5rem auto;
   font-family: "Cairo", sans-serif;
   margin-bottom: 0;
+  width: 90%;
 }
 
+.image {
+  max-width: 600;
+  margin: 2rem auto;
+  width: 100%;
+}
 .title {
   font-size: 53px;
   color: #f0f8ff;

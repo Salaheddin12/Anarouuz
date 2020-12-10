@@ -25,7 +25,7 @@ const Post = ({ article }) => {
               [BLOCKS.EMBEDDED_ASSET]: (node) => (
                 <img
                   src={node.data.target.fields.file.url}
-                  style={{ maxWidth: 600, margin: "2rem auto" }}
+                  className={styles.image}
                 />
               ),
             },
