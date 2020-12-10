@@ -1,7 +1,6 @@
 .ReviewsContainer {
   width: 100%;
   display: flex;
-  background: url("../../public/lighthouse.svg") center/cover no-repeat;
   flex-flow: row wrap;
   align-content: stretch;
   justify-content: space-evenly;

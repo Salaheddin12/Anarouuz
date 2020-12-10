@@ -9,14 +9,15 @@
 .icon {
   width: 80px;
   height: 80px;
-  margin-right: 6rem;
 }
 .navBar {
   color: #f0f8ff;
   font-size: 28px;
-  width: 75%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  font-family: "Roboto", sans-serif;
+  font-family: "Cairo", sans-serif;
 }
+
+

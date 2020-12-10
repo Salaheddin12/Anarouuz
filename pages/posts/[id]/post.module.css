@@ -2,10 +2,8 @@
   color: #f0f8ff;
   padding: 3rem;
   margin: 5rem auto;
-  font-family: "Almarai", sans-serif;
+  font-family: "Cairo", sans-serif;
   margin-bottom: 0;
-  letter-spacing: 2px;
-  /* background: url("../../../public/writer.svg") left no-repeat; */
 }
 
 .title {
@@ -19,6 +17,5 @@
   color: #f3f2f2;
   line-height: 2rem;
   font-weight: bolder;
-  letter-spacing: 2px;
   text-align: "center";
 }

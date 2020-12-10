@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Socials from "../Socials";
+import Footer from "./Footer";
 import styles from "./layout.module.css";
 
 export default ({ children }) => {
@@ -17,8 +17,8 @@ export default ({ children }) => {
         {/* <a href="/#contact">Contact</a> */}
       </nav>
       {/* </section> */}
-      <Socials />
       {children}
+      <Footer />
     </div>
   );
 };

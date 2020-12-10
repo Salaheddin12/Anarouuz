@@ -1,0 +1,5 @@
+.container {
+  width: 100%;
+  background: url("../../../../public/lighthouse.svg") center/cover no-repeat;
+  height: 50vh;
+}

@@ -1,12 +1,12 @@
-import data from "../../../data";
+import data from "../../../../../data";
 import styles from "./socials.module.css";
 import Instagram from "./Icons/Instagram";
-import Twitter from './Icons/Twitter'
-import Behance from './Icons/Behance'
+import Twitter from "./Icons/Twitter";
+import Behance from "./Icons/Behance";
 const { socialLinks } = data;
 export default () => {
   return (
-    <div className={styles.socialLinks}>
+    <div className={`${styles.socialLinks} socials`}>
       <a
         href={socialLinks.twitter}
         target="_blank"
