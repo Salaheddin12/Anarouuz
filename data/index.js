@@ -13,4 +13,5 @@ module.exports={
         phone: "phone number"
     },
     foundingDate: "2020",
+    primaryColor:"#e74c3c",
 }

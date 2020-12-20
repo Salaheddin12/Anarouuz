@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { defaultSeo } from "next-seo";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import Layout from "../../../components/common/Layout";
@@ -17,6 +18,15 @@ const Post = ({ article }) => {
   console.log(article);
   return (
     <Layout>
+      <DefaultSeo
+        openGraph={{
+          type: "website",
+          locale: "en_IE",
+          url: `https://anarouuz.vercel.app/`,
+          site_name: "Anarouuz",
+          title: title,
+        }}
+      />
       <div className={styles.post}>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.postContent}>

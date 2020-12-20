@@ -14,7 +14,7 @@
 
 # production
 /build
-
+/components/illustration/Lighthouse
 #env
 .env
 # misc

@@ -3,6 +3,8 @@ import styles from "./socials.module.css";
 import Instagram from "./Icons/Instagram";
 import Twitter from "./Icons/Twitter";
 import Behance from "./Icons/Behance";
+import { primaryColor } from "../../../../../data/index";
+
 const { socialLinks } = data;
 export default () => {
   return (
@@ -13,7 +15,7 @@ export default () => {
         rel="noopener noreferrer"
         aria-label="Get in touch with me Twitter"
       >
-        <Twitter />
+        <Twitter color={primaryColor}/>
       </a>
       <a
         href={socialLinks.instagram}
@@ -21,7 +23,7 @@ export default () => {
         rel="noopener noreferrer"
         aria-label="Get in touch with me Instagram"
       >
-        <Instagram />
+        <Instagram color={primaryColor}/>
       </a>
       <a
         href={socialLinks.bahance}
@@ -29,7 +31,7 @@ export default () => {
         rel="noopener noreferrer"
         aria-label="Get in touch with me Behance"
       >
-        <Behance />
+        <Behance color={primaryColor}/>
       </a>
     </div>
   );

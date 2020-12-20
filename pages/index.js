@@ -2,6 +2,7 @@ import React,{useEffect,useState}  from 'react';
 import Data from '../data'
 import Reviews from '../components/Reviews';
 // import Contact from '../components/contact';
+import {primaryColor} from '../data/index'
 import Layout from '../components/common/Layout';
 import styles from '../styles/Home.module.css'
 
@@ -19,7 +20,7 @@ const Home=({articles})=> {
 <Layout>
       <div className={`${styles.about} .about`}>
         <h1 className={styles.title}>Hello.</h1>
-        <h3 className={styles.author}>{Data.author} here</h3>
+        <h3 className={styles.author} style={{color:primaryColor}}>{Data.author} here</h3>
         <p className={styles.description}>{Data.defaultDescription}</p>
       </div>
       <section id="articles">
