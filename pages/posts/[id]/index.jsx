@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { defaultSeo } from "next-seo";
+import { DefaultSeo } from "next-seo";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import Layout from "../../../components/common/Layout";
