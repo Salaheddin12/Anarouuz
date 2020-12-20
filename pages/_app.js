@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
       <SocialProfileJsonLd
         type="WebPage"
         name="Anarouuz"
-        url="https://devrev.ma/"
+        url="https://anarouuz.vercel.app/"
         sameAs={[
           'https://www.behance.net/Anarouuz',
           'https://twitter.com/TheAnarouuz',
