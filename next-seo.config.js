@@ -14,7 +14,7 @@ const SEO = {
     description,
     images: [
       {
-        url: '/public/thumbnail.jpg',
+        url: 'https://anarouuz.vercel.app/thumbnail.jpg',
         alt: title,
         width: 820,
         height: 312
