@@ -14,7 +14,7 @@ const SEO = {
     description,
     images: [
       {
-        url: 'https://devrev.ma/static/images/devrev-og-image.webp',
+        url: '/public/thumbnail.jpg',
         alt: title,
         width: 820,
         height: 312
