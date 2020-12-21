@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DefaultSeo } from "next-seo";
+import { NextSeo } from "next-seo";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import Layout from "../../../components/common/Layout";
@@ -18,7 +18,7 @@ const Post = ({ article }) => {
   console.log(article);
   return (
     <Layout>
-      <DefaultSeo
+      <NextSeo
         openGraph={{
           type: "website",
           locale: "en_IE",
